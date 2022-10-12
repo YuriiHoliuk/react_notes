@@ -4,3 +4,5 @@ with their `products` and an owner using a given markup.
 
 - Each `product` has a `categoryId`.
 - Each `category` has an `ownerId`.
+
+[DEMO LINK](https://iam-datsenko.github.io/react_product-categories/)
