@@ -1,33 +1,24 @@
 import React from 'react';
 import './App.scss';
 
-// import usersFromServer from './api/users';
-// import productsFromServer from './api/products';
-// import categoriesFromServer from './api/categories';
+import usersFromServer from './api/users';
+import productsFromServer from './api/products';
+import categoriesFromServer from './api/categories';
+import { PreparedCategory } from './types/PreparedCategory';
+import { CategotyList } from './components/CategoryList';
+
+const preparedCategories: PreparedCategory[] = categoriesFromServer.map(
+  (category) => ({
+    ...category,
+    owner: usersFromServer
+      .find(({ id }) => id === category.ownerId) || null,
+    products: productsFromServer
+      .filter(({ categoryId }) => categoryId === category.id),
+  }),
+);
 
 export const App: React.FC = () => (
   <div className="container">
-    <div className="ui card">
-      <div className="ui content">
-        <div className="ui description">
-          <p>Grocery - (Anna)</p>
-          
-          <ul className="ui list">
-            <li>Bread</li>
-            <li>Eggs</li>
-            <li>Sugar</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div className="ui card">
-      <div className="ui content">
-        <div className="ui description">
-          <p>Electronics - (Roma)</p>
-          <b>No products</b>
-        </div>
-      </div>
-    </div>
+    <CategotyList preparedCategories={preparedCategories} />
   </div>
 );
